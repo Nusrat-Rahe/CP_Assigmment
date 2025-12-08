@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+long long modPow(long long base,long long exp,long long mod) {
+    long long result = 1;
+    base%=mod;
+    while(exp>0){
+        if(exp%2==1)result=(result*base)% mod;
+        base=(base*base)%mod;
+        exp/=2;
+    }
+    return result;
+}
+int main() {
+    long long n;
+    cin >> n;
+    long long mod = 1e9 + 7;
+
+    long long evenCount=(n + 1)/2;
+    long long oddCount=n/2;
+
+    long long waysEve=modPow(5,evenCount,mod);
+    long long waysOdd =modPow(4,oddCount,mod);
+
+    long long answer=(waysEven*waysOdd)%mod;
+    cout<<answer<<endl;
+    return 0;
+}
+
