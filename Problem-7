@@ -1,1 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
 
+vector<int> dijkstra(int V, vector<vector<int>>& edges, int src) {
+    vector<vector<int>> adj(V, vector<int>(V, INT_MAX));
+    for (auto &e : edges) {
+        int u = e[0], v = e[1], w = e[2];
+        adj[u][v] = w;
+        adj[v][u] = w;
+
+    vector<int> dist(V, INT_MAX);
+    vector<bool> visited(V, false);
+    dist[src] = 0;
+
+    for (int i = 0; i < V; i++) {
+        int u = -1;
+        for (int j = 0; j < V; j++) {
+            if (!visited[j] && (u == -1 || dist[j] < dist[u])) {
+                u = j;
+            }
+        }
+
+        visited[u] = true;
+
+        for (int v = 0; v< V; v++) {
+            if (adj[u][v] != INT_MAX && dist[u] + adj[u][v] < dist[v]) {
+                dist[v] = dist[u] + adj[u][v];
+            }
+        }
+    }
+
+    return dist;
+}
+
+int main() {
+    int V = 3;
+    vector<vector<int>> edges = {{0,1,1},{1,2,3},{0,2,6}};
+    int src = 2;
+
+    vector<int> ans = dijkstra(V, edges, src);
+    for (int d : ans) cout << d << " ";
+    cout << endl;
+
+    return 0;
+}
