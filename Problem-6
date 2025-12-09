@@ -1,3 +1,4 @@
+
 #include<bits/stdc++.h>
 using namespace std;
 int vis[1000];
